@@ -61,7 +61,7 @@ const getAuthorRecipes = (recipes, author) => {
     return "There are no recipes found for this author.";
     //if the array is not empty return a new array with the recipes of the given author
   } else {
-    return filteredRecipes.map((recipe) => recipe);
+    return filteredRecipes.map((recipe) => recipe.Name);
   }
 };
 
@@ -85,6 +85,9 @@ const getRecipesWithIngredient = (recipes, ingredient) => {
     return "There are no recipes found for this ingredient.";
   } else {
     return filteredRecipes.map((recipe) => recipe.Name);
+    /*If I want to return the whole recipe, and not just the name, I can use this code:
+     return filteredRecipes.map((recipe) => recipe); 
+     and the stringify method at line 153 */
   }
 };
 
@@ -124,7 +127,6 @@ const displayMenu = () => {
   console.log("5. Get All Ingredients of Saved Recipes");
   console.log("0. Exit");
   const choice =
-    //1
     //2
     //3
     //4
@@ -148,13 +150,18 @@ do {
         //"Barney Desmazery";
         prompt("Enter the author name");
       console.log(
-        "The recipes of the selected author are :\n" +
+        "The recipes of the same author are : \n " +
           getAuthorRecipes(cakeRecipes, givenAuthor)
       );
+      /*console.log(
+        "The recipes of the same author are : \n " +
+          JSON.stringify(getAuthorRecipes(cakeRecipes, givenAuthor))
+      );*/
+
       break;
     case 3:
       const givenIngredient =
-        //"280g self-raising flour";
+        // "280g self-raising flour";
         prompt("Choose an ingredient");
       console.log(
         "The recipes with that ingredient are: \n" +
@@ -163,10 +170,12 @@ do {
       break;
     case 4:
       const givenName =
-        // "cupcakes";
+        //"cupcakes";
         prompt("Choose a name");
       const choosenRecipe = getRecipeWithName(cakeRecipes, givenName);
-      console.log("Here is the receipe I found: \n" + choosenRecipe);
+      console.log(
+        "Here is the recipe I found : \n" + JSON.stringify(choosenRecipe)
+      );
 
       recipeIngredients.push(choosenRecipe.Ingredients);
       //console.log(recipeIngredients);
@@ -179,6 +188,11 @@ do {
     case 0:
       console.log("Exiting...");
       break;
+    default:
+      console.log("Invalid input. Please enter a number between 0 and 5.");
+  }
+} while (choice !== 0);
+
     default:
       console.log("Invalid input. Please enter a number between 0 and 5.");
   }
